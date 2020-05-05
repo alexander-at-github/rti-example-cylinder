@@ -6,24 +6,19 @@ project (
 
 find_package (
   librtidevice REQUIRED
-  PATHS "/home/alexander/cdr/rti/build/"
+  # Path to the rti library
+  PATHS "/home/alexander/iue/cdr/rti-3-tmp/build/"
   )
 
-
-###### TMP
-#SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -pg")
-#SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -pg")
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # hack: gnuplot-iostream uses boost iostreams
 SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -lboost_iostreams")
 
-add_executable ( run
-  "src/main.cpp"
-  )
-target_compile_features (
-  run
-  PRIVATE
-  cxx_std_11
+add_executable (
+  run "src/main.cpp"
   )
 target_link_libraries (
   run
