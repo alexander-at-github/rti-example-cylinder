@@ -6,7 +6,7 @@
 #include <rti/device.hpp>
 
 #include "particle_factory.hpp"
-#include "io/create_plot.hpp"
+//#include "io/create_plot.hpp"
 #include "io/vtp_point_cloud_reader.hpp"
 #include "io/vtp_writer.hpp"
 

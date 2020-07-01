@@ -14,8 +14,8 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# hack: gnuplot-iostream uses boost iostreams
-SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -lboost_iostreams")
+# # hack: gnuplot-iostream uses boost iostreams
+# SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -lboost_iostreams")
 
 add_executable (
   run "src/main.cpp"
