@@ -12,7 +12,7 @@
 
 int main(int argc, char** argv)
 {
-  omp_set_num_threads(1);
+  //omp_set_num_threads(1);
   using numeric_type = float;
 
   auto input = io::vtp_point_cloud_reader<numeric_type>("../src/io/cylinder-25-rotated.vtp");
