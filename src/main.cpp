@@ -5,6 +5,7 @@
 
 #include <rti/device.hpp>
 
+#include "custom_reflection.hpp"
 #include "particle.hpp"
 //#include "io/create_plot.hpp"
 #include "io/vtp_point_cloud_reader.hpp"
@@ -29,13 +30,15 @@ int main(int argc, char** argv)
   rtidevice.set_y(rti::bound_condition::PERIODIC);
   //rtidevice.set_cosine_source(); // default
   rtidevice.set_power_cosine_source(2); // exponent
-  auto specular = rti::reflection::specular<numeric_type> {};
-  rtidevice.set(specular);
+  //auto specular = rti::reflection::specular<numeric_type> {};
+  //auto diffuse = rti::reflection::diffuse<numeric_type> {}; // default
+  auto customreflection = custom_reflection<numeric_type> {0.5};
+  rtidevice.set(customreflection);
   rtidevice.run();
   auto mcestimates = rtidevice.get_mc_estimates();
   auto hitcnts = rtidevice.get_hit_cnts();
 
-  io::vtp_writer<numeric_type>::write(points, normals, radii, mcestimates, hitcnts, "result-file-name.vtp");
+  io::vtp_writer<numeric_type>::write(points, normals, radii, mcestimates, hitcnts, "result-file.vtp");
   //io::create_plot(points, mcestimates);
 
   exit(EXIT_SUCCESS);
