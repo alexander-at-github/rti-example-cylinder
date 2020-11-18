@@ -28,12 +28,13 @@ int main(int argc, char** argv)
   rtidevice.set_number_of_rays(1024 * 1024);
   rtidevice.set_x(rti::bound_condition::REFLECTIVE);
   rtidevice.set_y(rti::bound_condition::PERIODIC);
-  //rtidevice.set_cosine_source(); // default
-  rtidevice.set_power_cosine_source(2); // exponent
-  //auto specular = rti::reflection::specular<numeric_type> {};
-  //auto diffuse = rti::reflection::diffuse<numeric_type> {}; // default
-  auto customreflection = custom_reflection<numeric_type> {0.5};
-  rtidevice.set(customreflection);
+  //auto sourceDirection = rti::ray::cosine_direction_z<numeric_type> {}; // default
+  auto sourceDirection = rti::ray::power_cosine_direction_z<numeric_type> {2.5}; // exponent
+  rtidevice.set(sourceDirection);
+  //auto reflectionfun = rti::reflection::specular<numeric_type> {};
+  //auto reflectionfun = rti::reflection::diffuse<numeric_type> {}; // default
+  auto reflectionfun = custom_reflection<numeric_type> {0.5};
+  rtidevice.set(reflectionfun);
   rtidevice.run();
   auto mcestimates = rtidevice.get_mc_estimates();
   auto hitcnts = rtidevice.get_hit_cnts();
