@@ -26,6 +26,10 @@ int main(int argc, char** argv)
   rtidevice.set_normals(normals);
   rtidevice.set_grid_spacing(radii);
   rtidevice.set_number_of_rays(1024 * 1024);
+  rtidevice.set_x(rti::bound_condition::REFLECTIVE);
+  rtidevice.set_y(rti::bound_condition::PERIODIC);
+  //rtidevice.set_cosine_source(); // default
+  rtidevice.set_power_cosine_source(2); // exponent
   rtidevice.register_particle_factory(std::move(particlefactory));
   rtidevice.run();
   auto mcestimates = rtidevice.get_mc_estimates();
