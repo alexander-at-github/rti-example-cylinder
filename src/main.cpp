@@ -29,6 +29,8 @@ int main(int argc, char** argv)
   rtidevice.set_y(rti::bound_condition::PERIODIC);
   //rtidevice.set_cosine_source(); // default
   rtidevice.set_power_cosine_source(2); // exponent
+  auto specular = rti::reflection::specular<numeric_type> {};
+  rtidevice.set(specular);
   rtidevice.run();
   auto mcestimates = rtidevice.get_mc_estimates();
   auto hitcnts = rtidevice.get_hit_cnts();
