@@ -5,7 +5,7 @@
 
 #include <rti/device.hpp>
 
-#include "particle_factory.hpp"
+#include "particle.hpp"
 //#include "io/create_plot.hpp"
 #include "io/vtp_point_cloud_reader.hpp"
 #include "io/vtp_writer.hpp"
@@ -20,8 +20,7 @@ int main(int argc, char** argv)
   auto normals = input.get_normals();
   auto radii = input.get_radii();
 
-  auto rtidevice = rti::device<numeric_type> {};
-  auto particlefactory = std::make_unique<particle_factory<numeric_type> > ();
+  auto rtidevice = rti::device<numeric_type, particle<numeric_type> > {};
   rtidevice.set_points(points);
   rtidevice.set_normals(normals);
   rtidevice.set_grid_spacing(radii);
@@ -30,7 +29,6 @@ int main(int argc, char** argv)
   rtidevice.set_y(rti::bound_condition::PERIODIC);
   //rtidevice.set_cosine_source(); // default
   rtidevice.set_power_cosine_source(2); // exponent
-  rtidevice.register_particle_factory(std::move(particlefactory));
   rtidevice.run();
   auto mcestimates = rtidevice.get_mc_estimates();
   auto hitcnts = rtidevice.get_hit_cnts();
