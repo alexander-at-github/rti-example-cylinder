@@ -21,7 +21,10 @@ int main(int argc, char** argv)
   auto normals = input.get_normals();
   auto radii = input.get_radii();
 
-  auto rtidevice = rti::device<numeric_type, particle<numeric_type> > {};
+  // using reflections = rti::reflection::specular<numeric_type>;
+  // using reflections = rti::reflection::diffuse<numeric_type>;
+  using custom_reflections = custom_reflection<numeric_type>;
+  auto rtidevice = rti::device<numeric_type, particle<numeric_type>, custom_reflections> {};
   rtidevice.set_points(points);
   rtidevice.set_normals(normals);
   rtidevice.set_grid_spacing(radii);
@@ -31,10 +34,6 @@ int main(int argc, char** argv)
   //auto sourceDirection = rti::ray::cosine_direction_z<numeric_type> {}; // default
   auto sourceDirection = rti::ray::power_cosine_direction_z<numeric_type> {2.5}; // exponent
   rtidevice.set(sourceDirection);
-  //auto reflectionfun = rti::reflection::specular<numeric_type> {};
-  //auto reflectionfun = rti::reflection::diffuse<numeric_type> {}; // default
-  auto reflectionfun = custom_reflection<numeric_type> {0.5};
-  rtidevice.set(reflectionfun);
   rtidevice.run();
   auto mcestimates = rtidevice.get_mc_estimates();
   auto hitcnts = rtidevice.get_hit_cnts();

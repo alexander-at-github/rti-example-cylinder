@@ -7,11 +7,6 @@ class custom_reflection : public rti::reflection::i_reflection<numeric_type> {
 
 public:
 
-  custom_reflection(numeric_type aThreshold)
-  {
-    thrshld = aThreshold;
-  }
-
   rti::util::pair<rti::util::triple<numeric_type> >
   use
   (RTCRay& rayin, RTCHit& hitin, rti::geo::meta_geometry<numeric_type>& geometry,
@@ -37,7 +32,7 @@ public:
 
 private:
 
-  numeric_type thrshld;
+  numeric_type thrshld = 0.5;
   rti::reflection::diffuse<numeric_type> diffuse;
   rti::reflection::specular<numeric_type> specular;
 };
